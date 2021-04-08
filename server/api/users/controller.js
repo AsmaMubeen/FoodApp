@@ -7,11 +7,11 @@ let helpers = require('../../common/helpers');
 let addUser = async (req, res) => {
     try {
         let body = req.body;
-        if (!body.username) reject("username is required")
-        else if (!body.firstName) reject("firstName is required")
-        else if (!body.lastName) reject("lastName is required")
-        else if (!body.email || !helpers.isValidEmail(body.email)) reject("Invalid email")
-        else if (!body.password) reject("Invalid password")
+        if (!body.username) throw "username is required."
+        else if (!body.firstName) throw "firstName is required."
+        else if (!body.lastName) throw "lastName is required."
+        else if (!body.email || !helpers.isValidEmail(body.email)) throw "Invalid email."
+        else if (!body.password) throw "Invalid password."
         else {
             body.email = body.email.toLowerCase()
             body.username = body.username.toLowerCase()
@@ -25,7 +25,8 @@ let addUser = async (req, res) => {
                 throw "User already exists with this username."
             } else {
                 body.password = utils.encryptPassword(body.password);
-                let user = await UserModel.save(body)
+                let user = await UserModel.create(body)
+                user = user.toJSON()
                 delete user.password
                 res.status(200).json({
                     status: true,
@@ -43,10 +44,10 @@ let addUser = async (req, res) => {
 let login = async (req, res) => {
     try {
         let body = req.body;
-        if (!body.username) reject("username is required");
-        else if (!body.password) reject("password is required");
+        if (!body.username) throw "username is required."
+        else if (!body.password) throw "password is required."
         else {
-            let user = await UserModel.findOne({ username: body.username.toLowerCase() })
+            let user = await UserModel.findOne({ username: body.username.toLowerCase() }).lean()
             if (!user) {
                 throw "User not found."
             } else {
