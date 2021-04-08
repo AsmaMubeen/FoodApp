@@ -11,6 +11,6 @@ let Schema = new mongoose.Schema({
 
 Schema.index({ user: 1, product: 1 }, { unique: true })
 
-let Model = mongoose.model('rating', Schema);
+let Model = mongoose.model('favourites', Schema);
 
 module.exports = Model;

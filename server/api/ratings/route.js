@@ -10,20 +10,9 @@ let validationsMiddleware = require('../middlewares/validations');
 
 router.post(
     '/add',
+    authMiddleware.isUserLogin,
     validationsMiddleware.requiresBody,
     Controller.add
-);
-
-router.get(
-    "/list",
-    authMiddleware.isUserLogin,
-    Controller.productsList
-);
-
-router.get(
-    "/one/:_id",
-    authMiddleware.isUserLogin,
-    Controller.getProduct
 );
 
 module.exports = router;

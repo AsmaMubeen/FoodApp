@@ -17,7 +17,7 @@ let Schema = new mongoose.Schema({
     imageUrl: { type: String, required: true },
     price: { type: String, required: true },
     details: { type: String, required: true },
-    restaurant: {type: ObjectID, ref: "restaurant", required: true},
+    restaurant: { type: ObjectID, ref: "restaurant", required: true },
     nutrition: [
         NutritionSchema
     ]

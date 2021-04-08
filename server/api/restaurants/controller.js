@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let ObjectID = mongoose.Types.ObjectId;
 let RestaurantModel = require('./model');
 
-let add = (req, res) => {
+let add = async (req, res) => {
     try {
         let body = req.body;
         if (!body.name) throw "name is required."
